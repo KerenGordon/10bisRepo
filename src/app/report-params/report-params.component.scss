@@ -1,7 +1,21 @@
-.row {
+@import '../../styles.scss';
+
+.container {
+    @extend .flex-col-space-between;
+}
+.loader-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 70vh;
+}
+
+.form {
     display: flex;
     flex-direction: row;
     justify-content: space-between;
+    z-index: 1;
 }
 
 .suggestion {
@@ -31,14 +45,22 @@
     font-size: 0.9em;
     color: red;
   }
+  .dropdown-menu {
+      max-height: 15em;
+      overflow-y: auto;
+      .dropdown-item {
+          width: 16em;
+          overflow: hidden;
+          text-overflow: ellipsis;
+          white-space: nowrap; 
 
-  .dropdown {
-      max-width: 150px !important;
-      overflow: hidden;
+      }
   }
-
 
 #scrollbar::-webkit-scrollbar {
     width: 3px;
     background-color: grey;
+}
+.datepicker {
+    z-index: 1;
 }

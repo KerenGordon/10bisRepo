@@ -1,4 +1,7 @@
+@import '../../styles.scss';
+
 .container {
+    @extend .flex-col-space-between;
     height: 70vh;
     overflow-y: scroll;
 }

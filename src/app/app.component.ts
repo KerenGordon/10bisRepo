@@ -10,14 +10,11 @@ import { Store } from './interfaces';
 export class AppComponent implements OnInit {
   constructor(private _httpService: ExhttpService) {}
   title = 'paypo-app';
-  storesList = {};
+  storesList;
   ngOnInit() {
     // get Stores 
     this._httpService.getStores().subscribe( (res: Store[]) => {
       this.storesList = res;
-    }, 
-    error => {
-      this.storesList = [];
-    })
+    });
   }
 }

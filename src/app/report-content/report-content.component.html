@@ -1,4 +1,5 @@
-<div *ngIf="tableData" class="container fade-in">
+<app-content-loader class="fade-in" [showContentIf]="tableData"> 
+<div class="container fade-in">
   <table class="table">
     <thead>
       <tr>
@@ -12,3 +13,4 @@
     </tbody>
   </table>
 </div>
+</app-content-loader>

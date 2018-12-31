@@ -1,5 +1,12 @@
 @import "../node_modules/bootstrap/scss/bootstrap";
 
+.flex-col-space-between {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
 /* You can add global styles to this file, and also import other style files */
 .spinner {
     -webkit-animation: rotator 1.4s linear infinite;

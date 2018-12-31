@@ -1,41 +1,37 @@
-<div *ngIf="form" class="container">
-  <form class="row" [formGroup]="form">
-    <div class="col-lg-4 input-wrapper">
-      <input type="text" formControlName="storeName" class="form-control" placeholder="Search for a store..." 
-      #suggestionsMenu data-toggle="dropdown" aria-expanded="false">
-      <svg class="spinner" *ngIf="isSpinnerActive" class="spinner fade-in" width="25px" height="25px" viewBox="0 0 66 66">
-        <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
-      </svg>
-      <div [hidden]="!storeSuggestions" class="dropdown-menu fade-in" aria-labelledby="suggestionsMenu">
-        <button class="dropdown-item" type="button" *ngFor="let suggestion of storeSuggestions" (click)="selectStore(suggestion)"> {{ suggestion.Name }}</button>
+
+<app-content-loader [showContentIf]="ordersForm"> 
+  <div class="container">
+    <form class="row form" [formGroup]="ordersForm">
+      <div class="col-lg-4 input-wrapper" ngbDropdown #suggestionsMenu="ngbDropdown">
+        <input ngbDropdownAnchor type="text" formControlName="storeName" class="form-control" placeholder="Search for a store..." (input)="subscribeToStoreNameInput()" (focusout)="unsubscribeFromStoreNameInput()">
+        <svg class="spinner" *ngIf="isSpinnerActive" class="spinner fade-in" width="25px" height="25px" viewBox="0 0 66 66">
+          <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+        </svg>
+        <div ngbDropdownMenu class="dropdown-menu fade-in" aria-labelledby="suggestionsMenu">
+          <button class="dropdown-item" type="button" *ngFor="let suggestion of storeSuggestions" (click)="selectStore(suggestion)"> {{ suggestion.Name }}</button>
+        </div>
+        <div *ngIf="ordersForm.controls['storeName'].errors?.noMatch && !isSpinnerActive" class="no-result fade-in"> No active stores. </div>
       </div>
-        <!-- <div *ngIf="storeSuggestions && !isSpinnerActive" class="suggestion fade-in">  -->
-          <!-- <a *ngFor="let suggestion of storeSuggestions" (click)="selectStore(suggestion)"> {{ suggestion.Name }} | </a>  -->
-        <!-- </div> -->
-      <div *ngIf="form.controls['storeName'].errors?.noMatch && !isSpinnerActive" class="no-result fade-in"> No active stores. </div>
-      <!-- <button class="btn btn-secondary dropdown-toggle" type="button" id="suggestionsMenu2" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          Dropdown
-        </button> -->
-    </div>
-    
-    
-    <div class="col-lg-2 fade-in">
-      <select class="form-control dropdown" formControlName="pos">
-        <option class="dropdown-option" hidden [value]="null"> Pick a POS </option>
-        <option class="dropdown-option" *ngFor="let pos of posList" [value]="pos.ID" > {{pos.Name}}</option>
-      </select>
-    </div>
-    
-    <div class="col-lg-2 fade-in">
-      <input class="form-control" autocomplete="off" (keypress)="false" placeholder="yyyy-mm-dd" (click)="d.toggle()" name="dp" formControlName="startDate" ngbDatepicker #d="ngbDatepicker">
-    </div>
-    <div class="col-lg-2 fade-in">
-      <input class="form-control" autocomplete="off" (keypress)="false" placeholder="yyyy-mm-dd" (click)="e.toggle()" name="dp" [minDate]="form.controls['startDate'].value" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
-    </div>
-    
-    <div class="submit">
-      <button type="button" [ngClass]="{'btn': true, 'btn-outline-success': form.valid, 'btn-outline-secondary': !form.valid}"
-      [disabled]="!form.valid" (click)="getReport()">Submit</button>
-    </div>
-  </form>
-<app-report-content *ngIf="tableData" [data]="tableData"> </app-report-content>
+      
+      <div class="col-lg-2 fade-in" ngbDropdown #posMenu="ngbDropdown">
+        <input ngbDropdownToggle type="text" formControlName="pos" class="form-control" placeholder="Pick a POS" >
+        <div ngbDropdownMenu class="dropdown-menu fade-in" aria-labelledby="posMenu">
+          <button class="dropdown-item" type="button" *ngFor="let pos of posList" (click)="selectPos(pos)"> {{ pos.Name }}</button>
+        </div>
+      </div>
+      
+      <div class="col-lg-2 fade-in">
+        <input class="form-control datepicker" autocomplete="off" (keypress)="false" placeholder="yyyy-mm-dd" (click)="d.toggle()" name="dp" formControlName="startDate" ngbDatepicker #d="ngbDatepicker">
+      </div>
+      <div class="col-lg-2 fade-in">
+        <input class="form-control datepicker" autocomplete="off" (keypress)="false" placeholder="yyyy-mm-dd" (click)="e.toggle()" name="dp" [minDate]="ordersForm.controls['startDate'].value" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
+      </div>
+      
+      <div class="submit">
+        <button type="button" [ngClass]="{'btn': true, 'btn-outline-success': ordersForm.valid, 'btn-outline-secondary': !ordersForm.valid}"
+        [disabled]="!ordersForm.valid" (click)="getReport()">Submit</button>
+      </div>
+    </form>
+    <app-report-content class="loader-container" *ngIf="tableData" [data]="tableData"> </app-report-content>
+  </div>
+</app-content-loader>

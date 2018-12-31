@@ -42,11 +42,8 @@ body {
   }
 
   .container {
-    display: flex;
-    height: 100%;
+    @extend .flex-col-space-between;
     align-items: center;
-    flex-direction: column;
-    justify-content: flex-start;
     background-color: white;
     .sub-container {
       height: 100%;
