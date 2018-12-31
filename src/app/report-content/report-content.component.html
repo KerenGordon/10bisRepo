@@ -1,0 +1,14 @@
+<div *ngIf="tableData" class="container fade-in">
+  <table class="table">
+    <thead>
+      <tr>
+        <th scope="col" *ngFor="let header of tableHeaders">{{header}}</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let order of tableData">
+        <td *ngFor="let key of tableKeys"> {{ order[key] }} </td> 
+      </tr>
+    </tbody>
+  </table>
+</div>

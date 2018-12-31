@@ -1,0 +1,44 @@
+.row {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+}
+
+.suggestion {
+    color: grey;
+    font-size: 0.9em;
+    position: absolute;
+    top: 3em;
+    max-height: 4em;
+    overflow-y: scroll;
+
+}
+
+.input-wrapper {
+    display: flex;
+    flex-direction: column;
+}
+
+.spinner {
+    @extend .spinner;
+    position: absolute;
+    right: 1.5em;
+    top: 0.4em;
+    bottom: 0;
+  }
+
+  .no-result {
+    font-size: 0.9em;
+    color: red;
+  }
+
+  .dropdown {
+      max-width: 150px !important;
+      overflow: hidden;
+  }
+
+
+#scrollbar::-webkit-scrollbar {
+    width: 3px;
+    background-color: grey;
+}
