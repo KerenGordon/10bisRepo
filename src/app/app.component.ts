@@ -8,7 +8,9 @@ import { Store } from './interfaces';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent implements OnInit {
+  
   constructor(private _httpService: ExhttpService) {}
+
   title = 'paypo-app';
   storesList;
   ngOnInit() {

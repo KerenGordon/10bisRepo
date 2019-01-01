@@ -1,5 +1,6 @@
-<app-content-loader class="fade-in" [showContentIf]="tableData"> 
-<div class="container fade-in">
+<app-content-loader class="fade-in" [showContentIf]="tableData || displayNoDataMessage"> 
+<div class="content-wrapper fade-in">
+  <p *ngIf="displayNoDataMessage"> No orders were found. </p>
   <table class="table">
     <thead>
       <tr>

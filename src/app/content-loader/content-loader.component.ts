@@ -19,7 +19,7 @@ export class ContentLoaderComponent implements OnInit {
     }
     
     timeOutCounter = 0;
-    TIME_OUT_MAX = 15;
+    TIME_OUT_MAX = 122225;
     userMsg = null;
     showTimeContent = false;
 

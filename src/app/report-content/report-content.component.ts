@@ -21,14 +21,19 @@ export class ReportContentComponent implements OnInit {
   
   constructor() { }
   @Input() data: OrdersResponse[];
-  tableData = [];
+  tableData;
   tableHeaders = [];
   tableKeys = [];
+  displayNoDataMessage: boolean = false;
 
   ngOnInit() {
-    this.buildTableData();
-    this.tableHeaders = Object.values(TableHeadersKeyMap);
-    this.tableKeys = Object.keys(TableHeadersKeyMap)
+    if (this.isDataWithResults()) {
+      this.buildTableData();
+      this.tableHeaders = Object.values(TableHeadersKeyMap);
+      this.tableKeys = Object.keys(TableHeadersKeyMap)
+    } else {
+      this.displayNoDataMessage = true;
+    }
   }
   
   buildTableData() {
@@ -43,6 +48,10 @@ export class ReportContentComponent implements OnInit {
         orderSum: order.OrderSumString
       }
     });
+  }
+
+  isDataWithResults() {
+    return this.data.length > 0;
   }
   
 }

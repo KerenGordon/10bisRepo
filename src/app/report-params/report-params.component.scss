@@ -1,66 +1,46 @@
 @import '../../styles.scss';
-
-.container {
+.content-loader {
+    height: 100%;
+}
+.content-wrapper {
     @extend .flex-col-space-between;
-}
-.loader-container {
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 70vh;
-}
+    padding: 0 1em;
+    .form {
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        z-index: 1;
+        box-sizing: border-box;
+        .col-lg-4, .col-lg-2 {
+            padding: 0;
+        }
+        .input-wrapper {
+            display: flex;
+            flex-direction: column;
+            .no-result {
+                font-size: 0.9em;
+                color: red;
+            }
+            .spinner {
+                @extend .spinner;
+                position: absolute;
+                right: 1.5em;
+                top: 0.4em;
+                bottom: 0;
+            }
+        }
+        
+        .ngb-dropdown-menu {
+            max-height: 15em;
+            overflow-y: auto;
+            // .dropdown-item {
+            //     width: 16em;
+            //     overflow: hidden;
+            //     text-overflow: ellipsis;
+            //     white-space: nowrap; 
+                
+            // }
+        }
+    }
 
-.form {
-    display: flex;
-    flex-direction: row;
-    justify-content: space-between;
-    z-index: 1;
-}
-
-.suggestion {
-    color: grey;
-    font-size: 0.9em;
-    position: absolute;
-    top: 3em;
-    max-height: 4em;
-    overflow-y: scroll;
-
-}
-
-.input-wrapper {
-    display: flex;
-    flex-direction: column;
-}
-
-.spinner {
-    @extend .spinner;
-    position: absolute;
-    right: 1.5em;
-    top: 0.4em;
-    bottom: 0;
-  }
-
-  .no-result {
-    font-size: 0.9em;
-    color: red;
-  }
-  .dropdown-menu {
-      max-height: 15em;
-      overflow-y: auto;
-      .dropdown-item {
-          width: 16em;
-          overflow: hidden;
-          text-overflow: ellipsis;
-          white-space: nowrap; 
-
-      }
-  }
-
-#scrollbar::-webkit-scrollbar {
-    width: 3px;
-    background-color: grey;
-}
-.datepicker {
-    z-index: 1;
 }

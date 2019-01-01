@@ -1,13 +1,14 @@
 
-<app-content-loader [showContentIf]="ordersForm"> 
-  <div class="container">
+<app-content-loader class="content-loader" [showContentIf]="ordersForm"> 
+    <!-- ordersForm  -->
+  <div class="content-wrapper">
     <form class="row form" [formGroup]="ordersForm">
       <div class="col-lg-4 input-wrapper" ngbDropdown #suggestionsMenu="ngbDropdown">
         <input ngbDropdownAnchor type="text" formControlName="storeName" class="form-control" placeholder="Search for a store..." (input)="subscribeToStoreNameInput()" (focusout)="unsubscribeFromStoreNameInput()">
         <svg class="spinner" *ngIf="isSpinnerActive" class="spinner fade-in" width="25px" height="25px" viewBox="0 0 66 66">
           <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
         </svg>
-        <div ngbDropdownMenu class="dropdown-menu fade-in" aria-labelledby="suggestionsMenu">
+        <div ngbDropdownMenu class="ngb-dropdown-menu fade-in" aria-labelledby="suggestionsMenu">
           <button class="dropdown-item" type="button" *ngFor="let suggestion of storeSuggestions" (click)="selectStore(suggestion)"> {{ suggestion.Name }}</button>
         </div>
         <div *ngIf="ordersForm.controls['storeName'].errors?.noMatch && !isSpinnerActive" class="no-result fade-in"> No active stores. </div>
@@ -15,7 +16,7 @@
       
       <div class="col-lg-2 fade-in" ngbDropdown #posMenu="ngbDropdown">
         <input ngbDropdownToggle type="text" formControlName="pos" class="form-control" placeholder="Pick a POS" >
-        <div ngbDropdownMenu class="dropdown-menu fade-in" aria-labelledby="posMenu">
+        <div ngbDropdownMenu class="ngb-dropdown-menu fade-in" aria-labelledby="posMenu">
           <button class="dropdown-item" type="button" *ngFor="let pos of posList" (click)="selectPos(pos)"> {{ pos.Name }}</button>
         </div>
       </div>
@@ -32,6 +33,6 @@
         [disabled]="!ordersForm.valid" (click)="getReport()">Submit</button>
       </div>
     </form>
-    <app-report-content class="loader-container" *ngIf="tableData" [data]="tableData"> </app-report-content>
+    <app-report-content *ngIf="tableData" [data]="tableData"> </app-report-content>
   </div>
 </app-content-loader>

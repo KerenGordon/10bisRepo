@@ -1,7 +1,11 @@
 @import '../../styles.scss';
 
-.container {
-    @extend .flex-col-space-between;
-    height: 70vh;
-    overflow-y: scroll;
+.content-wrapper {
+    height: 65vh;
+    overflow-y: auto;
+    .table {
+        width: 100%;
+        margin-bottom: 1rem;
+    }
+    
 }
