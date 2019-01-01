@@ -1,6 +1,8 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { IOrderResponse, IOrderDataTable } from '../interfaces';
 import { ExhttpService } from '../exhttp.service';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SingleOrderViewComponent } from './single-order-view/single-order-view.component';
 
 const TableHeadersKeyMap = {
   orderId: 'Order ID',
@@ -20,14 +22,14 @@ const TableHeadersKeyMap = {
 })
 export class ReportContentComponent implements OnInit {
   
-  constructor(private _httpService: ExhttpService) { }
-  ordersTableData: IOrderDataTable[] = [];
-  tableHeaders: string[] = [];
-  tableKeys: string[] = [];
+  constructor(private _httpService: ExhttpService, private modalService: NgbModal) { }
+  ordersTableData: IOrderDataTable[];
+  tableHeaders: string[];
+  tableKeys: string[];
   
   ngOnInit() {
     this._httpService.ordersSub$.subscribe((ordersData: IOrderResponse[]) => {
-      console.log('ordersData: ', ordersData);
+      this.ordersTableData = []
       if (ordersData && ordersData.length > 0) this.initializeTable(ordersData);
     });
   }
@@ -50,6 +52,11 @@ export class ReportContentComponent implements OnInit {
         orderSum: order.OrderSumString
       }
     });
+  }
+
+  openSingleView(order) {
+    const modalRef = this.modalService.open(SingleOrderViewComponent);
+    modalRef.componentInstance.order = order;
   }
   
 }

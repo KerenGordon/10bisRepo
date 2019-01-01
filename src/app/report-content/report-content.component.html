@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of ordersTableData">
+      <tr *ngFor="let order of ordersTableData" (click)="openSingleView(order)">
         <td *ngFor="let key of tableKeys"> {{ order[key] }} </td> 
       </tr>
     </tbody>

@@ -12,6 +12,7 @@ import { ReportContentComponent } from './report-content/report-content.componen
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { PerfectScrollbarModule, PerfectScrollbarConfigInterface, PERFECT_SCROLLBAR_CONFIG } from 'ngx-perfect-scrollbar';
 import { ContentLoaderComponent } from './content-loader/content-loader.component';
+import { SingleOrderViewComponent } from './report-content/single-order-view/single-order-view.component';
 
 
 const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -25,6 +26,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
     ReportParamsComponent,
     ReportContentComponent,
     ContentLoaderComponent,
+    SingleOrderViewComponent,
     ],
   imports: [
     BrowserModule,
@@ -42,6 +44,7 @@ const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
       useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     }
   ],
+  entryComponents: [SingleOrderViewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

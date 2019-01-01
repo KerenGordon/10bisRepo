@@ -1,0 +1,14 @@
+<div class="order-view fade-in" *ngIf="orderProperties">
+  <div class="modal-header">
+    <h2 class="modal-title"> Order Details </h2>
+  </div>
+  <div class="modal-body">
+    <div class="field" *ngFor="let field of orderProperties"> 
+      <h6 class="field-title"> {{field}} </h6>
+      <p class="value"> {{order[field]}} </p>
+    </div>
+  </div>
+  <div class="modal-footer">
+      <button type="button" class="btn btn-outline-dark" (click)="activeModal.close('Close click')">Close</button>
+  </div>
+</div>
