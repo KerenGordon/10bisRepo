@@ -1,6 +1,6 @@
 import { ExhttpService } from './../exhttp.service';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { Store, POS, OrdersPayload } from '../interfaces';
+import { IStore, IPOS, IOrdersPayload, IOrdersResponse } from '../interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
@@ -15,102 +15,115 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./report-params.component.scss']
 })
 export class ReportParamsComponent implements OnInit {
-  @Input() storesList: Store[];
+  @Input() storesList: IStore[];
   @ViewChild('suggestionsMenu') suggestionsMenu: NgbDropdown;
   ordersForm: FormGroup;
-  $inputSub: Subscription;
-  storeSuggestions: Store[];
-  posList: POS[];
-  isSpinnerActive = false;
-  tableData: Object;
+  inputSub: Subscription;
+  availableStoresSuggestion: IStore[];
+  storePosList: IPOS[];
+  isSpinnerActive: boolean = false;
+  ordersData: IOrdersResponse[];
   
   constructor(private _httpService: ExhttpService, private _fb: FormBuilder) { }
   
   ngOnInit() {
     this.buildForm();
-    this.subscribeToStoreNameInput();
+    this.subscribeToStoreInputChanges();
   }
   
   buildForm(): void {
     this.ordersForm = this._fb.group({
       storeName: [null, Validators.required],
-      pos: [null, Validators.required],
+      pos: [{value: null, disabled: true}, Validators.required],
       startDate: [null, Validators.required],
       endDate: [null, Validators.required]
     });
   }
   
-  subscribeToStoreNameInput() {
-    if (!this.$inputSub || this.$inputSub.closed) this.$inputSub = this.ordersForm.get('storeName').valueChanges.pipe(debounceTime(250)).subscribe(input => {
-      this.searchStore(input) } )
+  subscribeToStoreInputChanges(): void {
+    if (!this.inputSub || this.inputSub.closed) {
+      this.inputSub = this.ordersForm.get('storeName').valueChanges.pipe(debounceTime(100)).subscribe(input => this.searchStore(input));
     }
-    unsubscribeFromStoreNameInput() {
-      if (this.$inputSub) this.$inputSub.unsubscribe()
-    }
-    
-    searchStore(searchsStr): void {
-      searchsStr = searchsStr.trim();
-      this.isSpinnerActive = true;
-      this.resetSearchParams();
-      
-      let result = this.storesList.filter(store => store.Name.includes(searchsStr) );
-      if (result.length === 1) this.selectStore(result[0])
-      else if (result.length) {
-        this.storeSuggestions = result;
-        if (!this.suggestionsMenu.isOpen()) this.suggestionsMenu.open();
-      } else {
-        this.suggestionsMenu.close();
-        this.ordersForm.get('storeName').setErrors({'noMatch': true}); 
-      }
-      setTimeout(() => {
-        this.isSpinnerActive = false;
-      }, 1000);
-    }
-    
-    selectStore(store) {
-      this.updateCurrentStoreParams(store);
-      this.suggestionsMenu.close();
-      this.unsubscribeFromStoreNameInput();
-    }
-    
-    resetSearchParams(): void {
-      this.posList = null;
-      this.storeSuggestions = null;
-      this.ordersForm.get('pos').setValue(null);
-    }
-    
-    updateCurrentStoreParams(currentStore: Store): void {
-      this.ordersForm.get('storeName').setValue(currentStore.Name);
-      this.posList = currentStore.POSList;
-      this.isSpinnerActive = false;
-    }
-    
-    selectPos(pos: POS): void {
-      console.log('pos: ', pos);
-      this.ordersForm.get('pos').setValue(pos.Name);
-    }
-    
-    getReport(): void {
-      let payload = this.buildReportPayload(); 
-      
-      this._httpService.getOrders(payload).subscribe(response => {
-        this.tableData = response['Data'];
-      })
-    }
-    
-    buildReportPayload(): OrdersPayload {
-      let payload = {} as OrdersPayload;
-      let startDate = this.ordersForm.get('startDate').value;
-      let endDate = this.ordersForm.get('endDate').value;
-      
-      payload.posId = this.ordersForm.get('pos').value;
-      payload.startDate = `${startDate.month}/${startDate.day}/${startDate.year}`;
-      payload.endDate = `${endDate.month}/${endDate.day}/${endDate.year}`;
-      
-      return payload;
-    }
-    
-    
   }
   
+  unsubscribeFromStoreNameInput(): void {
+    if (this.inputSub) this.inputSub.unsubscribe();
+  }
   
+  searchStore(searchsStr): void {
+    searchsStr = searchsStr.trim();
+    this.isSpinnerActive = true;
+    this.resetSearchParams();
+    
+    let availableStores = this.storesList.filter(store => store.Name.includes(searchsStr));
+    switch (availableStores.length) {
+      case 0:
+        // no match
+        this.suggestionsMenu.close();
+        this.ordersForm.get('storeName').setErrors({'noMatch': true}); 
+        break;
+      case 1:
+        // one match
+        (searchsStr === availableStores[0].Name) ? this.selectStore(availableStores[0]) : this.updateSuggestionsMenu(availableStores);
+        break;
+      default:
+        // more than one match
+        this.updateSuggestionsMenu(availableStores);
+        break;
+    }
+
+    setTimeout(() => {
+      this.isSpinnerActive = false;
+    }, 1000);
+  }
+  
+  selectStore(store): void {
+    this.updateCurrentStoreParams(store);
+    this.suggestionsMenu.close();
+    this.unsubscribeFromStoreNameInput();
+  }
+  
+  resetSearchParams(): void {
+    this.ordersForm.get('pos').disable();
+    this.storePosList = null;
+    this.availableStoresSuggestion = null;
+  }
+  
+  updateCurrentStoreParams(currentStore: IStore): void {
+    this.ordersForm.get('pos').enable();
+    this.ordersForm.get('storeName').setValue(currentStore.Name);
+    this.storePosList = currentStore.POSList;
+    this.isSpinnerActive = false;
+  }
+  updateSuggestionsMenu(availableStores): void {
+    this.availableStoresSuggestion = availableStores;
+    if (!this.suggestionsMenu.isOpen()) this.suggestionsMenu.open();
+  }
+  
+  selectPos(pos: IPOS): void {
+    this.ordersForm.get('pos').setValue(pos.Name);
+  }
+  
+  getReport(): void {
+    let payload = this.buildReportPayload(); 
+    
+    this._httpService.getOrders(payload).subscribe(response => {
+      this.ordersData = response['Data'];
+    })
+  }
+  
+  buildReportPayload(): IOrdersPayload {
+    let payload = {} as IOrdersPayload;
+    let startDate = this.ordersForm.get('startDate').value;
+    let endDate = this.ordersForm.get('endDate').value;
+    
+    payload.posId = this.ordersForm.get('pos').value;
+    payload.startDate = `${startDate.month}/${startDate.day}/${startDate.year}`;
+    payload.endDate = `${endDate.month}/${endDate.day}/${endDate.year}`;
+    
+    return payload;
+  }
+  
+}
+
+

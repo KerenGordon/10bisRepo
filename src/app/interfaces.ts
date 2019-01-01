@@ -1,10 +1,10 @@
-export interface Store {
+export interface IStore {
     ID: number;
     Name: string;
-    POSList: POS[];
+    POSList: IPOS[];
 }
 
-export interface POS {
+export interface IPOS {
     ID: number;
     PaypoResId: number;
     Name: string;
@@ -29,45 +29,62 @@ export interface POS {
     IPAddress?: any;
 }
 
-export interface OrdersPayload {
+export interface IOrdersPayload {
     posId: number;
     startDate: string;
     endDate: string;
 }
 
-export interface OrdersResponse {
+export interface IOrdersResponse {
     ID: number;
-  EndTime: string;
-  EndTimeString: string;
-  CustomerName: string;
-  Canceled: boolean;
-  Remarks: string;
-  AttendingEmployeeName: string;
-  PartySize: number;
-  TableId: number;
-  TableName: string;
-  DocumentNumber: string;
-  ReferenceOrderId: number;
-  CustomerPhoneNumber: string;
-  ShiftId: number;
-  PosId: number;
-  PosName: string;
-  OrderSum: number;
-  OrderSumString: string;
-  RemainingBalance: number;
-  HasRemainingBalance: boolean;
-  Closed: boolean;
-  OrderAddressCity?: any;
-  OrderAddressStreet?: any;
-  CourierEmployeeName: string;
-  Intakes: Intake[];
-  VirtualIntakes: any[];
-  PaymentMethodDisplayName: string;
-  PaymentMethodsCount: number;
-  SearchDataText: string;
+    EndTime: string;
+    EndTimeString: string;
+    CustomerName: string;
+    Canceled: boolean;
+    Remarks: string;
+    AttendingEmployeeName: string;
+    PartySize: number;
+    TableId: number;
+    TableName: string;
+    DocumentNumber: string;
+    ReferenceOrderId: number;
+    CustomerPhoneNumber: string;
+    ShiftId: number;
+    PosId: number;
+    PosName: string;
+    OrderSum: number;
+    OrderSumString: string;
+    RemainingBalance: number;
+    HasRemainingBalance: boolean;
+    Closed: boolean;
+    OrderAddressCity?: any;
+    OrderAddressStreet?: any;
+    CourierEmployeeName: string;
+    Intakes: IIntake[];
+    VirtualIntakes: any[];
+    PaymentMethodDisplayName: string;
+    PaymentMethodsCount: number;
+    SearchDataText: string;
 }
-interface Intake {
+export interface IIntake {
     PaymentMethod: number;
     PaymentMethodDisplayName: string;
     Suffix?: any;
-  }
+}
+
+export interface IOrderDataTable {
+    orderId: number;
+    startDate: string;
+    endDate: string;
+    customerName: string;
+    orderType: string;
+    phoneNumber: string;
+    orderSum: string;
+}
+export interface IHttpGetParams {
+    token: string;
+    storeId?: number;
+    posId?: number;
+    startDate?: string;
+    endDate?: string;
+}

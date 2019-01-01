@@ -1,4 +1,4 @@
-<app-content-loader class="fade-in" [showContentIf]="tableData || displayNoDataMessage"> 
+<app-content-loader class="fade-in" [showContentIf]="ordersTableData?.length > 0 || displayNoDataMessage"> 
 <div class="content-wrapper fade-in">
   <p *ngIf="displayNoDataMessage"> No orders were found. </p>
   <table class="table">
@@ -8,7 +8,7 @@
       </tr>
     </thead>
     <tbody>
-      <tr *ngFor="let order of tableData">
+      <tr *ngFor="let order of ordersTableData">
         <td *ngFor="let key of tableKeys"> {{ order[key] }} </td> 
       </tr>
     </tbody>

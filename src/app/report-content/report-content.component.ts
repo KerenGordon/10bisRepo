@@ -1,5 +1,5 @@
 import { Component, OnInit, Input } from '@angular/core';
-import { OrdersResponse } from '../interfaces';
+import { IOrdersResponse, IOrderDataTable } from '../interfaces';
 
 const TableHeadersKeyMap = {
   orderId: 'Order ID',
@@ -20,14 +20,14 @@ const TableHeadersKeyMap = {
 export class ReportContentComponent implements OnInit {
   
   constructor() { }
-  @Input() data: OrdersResponse[];
-  tableData;
-  tableHeaders = [];
-  tableKeys = [];
+  @Input() ordersData: IOrdersResponse[];
+  ordersTableData: IOrderDataTable[] = [];
+  tableHeaders: string[] = [];
+  tableKeys: string[] = [];
   displayNoDataMessage: boolean = false;
 
   ngOnInit() {
-    if (this.isDataWithResults()) {
+    if (this.isOrdersData()) {
       this.buildTableData();
       this.tableHeaders = Object.values(TableHeadersKeyMap);
       this.tableKeys = Object.keys(TableHeadersKeyMap)
@@ -37,8 +37,8 @@ export class ReportContentComponent implements OnInit {
   }
   
   buildTableData() {
-    this.data.forEach((order, index) => {
-      this.tableData[index] = {
+    this.ordersData.forEach((order, index) => {
+      this.ordersTableData[index] = {
         orderId: order.ID,
         startDate: order.EndTimeString,
         endDate: order.EndTimeString,
@@ -50,8 +50,8 @@ export class ReportContentComponent implements OnInit {
     });
   }
 
-  isDataWithResults() {
-    return this.data.length > 0;
+  isOrdersData() {
+    return this.ordersData && this.ordersData.length > 0;
   }
   
 }

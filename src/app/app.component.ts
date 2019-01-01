@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExhttpService } from './exhttp.service';
-import { Store } from './interfaces';
+import { IStore } from './interfaces';
 
 @Component({
   selector: 'app-root',
@@ -12,11 +12,12 @@ export class AppComponent implements OnInit {
   constructor(private _httpService: ExhttpService) {}
 
   title = 'paypo-app';
-  storesList;
+  storesList: IStore[];
+
   ngOnInit() {
     // get Stores 
-    this._httpService.getStores().subscribe( (res: Store[]) => {
-      this.storesList = res;
+    this._httpService.getStores().subscribe( (stores: IStore[]) => {
+      this.storesList = stores;
     });
   }
 }
