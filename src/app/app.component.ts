@@ -12,12 +12,13 @@ export class AppComponent implements OnInit {
   constructor(private _httpService: ExhttpService) {}
 
   title = 'paypo-app';
-  storesList: IStore[];
+  // storesList: IStore[];
 
   ngOnInit() {
     // get Stores 
-    this._httpService.getStores().subscribe( (stores: IStore[]) => {
-      this.storesList = stores;
-    });
+    // this._httpService.getStores().subscribe( (stores: IStore[]) => {
+    //   this.storesList = stores;
+    // });
+    this._httpService.getStores();
   }
 }

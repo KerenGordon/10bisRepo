@@ -1,6 +1,6 @@
 import { ExhttpService } from './../exhttp.service';
 import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { IStore, IPOS, IOrdersPayload, IOrdersResponse } from '../interfaces';
+import { IStore, IPOS, IOrdersPayload, IOrderResponse } from '../interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
@@ -15,21 +15,23 @@ import { Subscription } from 'rxjs';
   styleUrls: ['./report-params.component.scss']
 })
 export class ReportParamsComponent implements OnInit {
-  @Input() storesList: IStore[];
+  storesList: IStore[];
   @ViewChild('suggestionsMenu') suggestionsMenu: NgbDropdown;
   ordersForm: FormGroup;
-  inputSub: Subscription;
+  inputSub$: Subscription;
   availableStoresSuggestion: IStore[];
   storePosList: IPOS[];
   isSpinnerActive: boolean = false;
-  ordersData: IOrdersResponse[];
+  isFormSubmitted: boolean = false;
   
   constructor(private _httpService: ExhttpService, private _fb: FormBuilder) { }
   
   ngOnInit() {
-    this.buildForm();
-    this.subscribeToStoreInputChanges();
-  }
+    this._httpService.storesSub$.subscribe((storesList: IStore[]) => {
+      this.storesList = storesList;
+      this.buildForm();
+    });
+  };
   
   buildForm(): void {
     this.ordersForm = this._fb.group({
@@ -41,13 +43,13 @@ export class ReportParamsComponent implements OnInit {
   }
   
   subscribeToStoreInputChanges(): void {
-    if (!this.inputSub || this.inputSub.closed) {
-      this.inputSub = this.ordersForm.get('storeName').valueChanges.pipe(debounceTime(100)).subscribe(input => this.searchStore(input));
+    if (!this.inputSub$ || this.inputSub$.closed) {
+      this.inputSub$ = this.ordersForm.get('storeName').valueChanges.pipe(debounceTime(100)).subscribe(input => this.searchStore(input));
     }
   }
   
   unsubscribeFromStoreNameInput(): void {
-    if (this.inputSub) this.inputSub.unsubscribe();
+    if (this.inputSub$) this.inputSub$.unsubscribe();
   }
   
   searchStore(searchsStr): void {
@@ -106,10 +108,8 @@ export class ReportParamsComponent implements OnInit {
   
   getReport(): void {
     let payload = this.buildReportPayload(); 
-    
-    this._httpService.getOrders(payload).subscribe(response => {
-      this.ordersData = response['Data'];
-    })
+    this._httpService.getOrders(payload);
+    if (!this.isFormSubmitted) this.isFormSubmitted = true;
   }
   
   buildReportPayload(): IOrdersPayload {

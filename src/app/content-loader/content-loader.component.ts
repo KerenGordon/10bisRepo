@@ -9,6 +9,7 @@ export class ContentLoaderComponent implements OnInit {
     
     @Input() width = 100;
     @Input() height = 100;
+    @Input() onFalseUserMessage = 'Something went wrong';
 
     _showContentIf = true;
     @Input() set showContentIf(value: boolean) {
@@ -19,8 +20,7 @@ export class ContentLoaderComponent implements OnInit {
     }
     
     timeOutCounter = 0;
-    TIME_OUT_MAX = 122225;
-    userMsg = null;
+    TIME_OUT_MAX = 5;
     showTimeContent = false;
 
     get showContentIf(): boolean {
@@ -40,18 +40,16 @@ export class ContentLoaderComponent implements OnInit {
         if (!this._showContentIf) {
             interval = setInterval(() => {
                 this.timeOutCounter++;
-
                 if (this._showContentIf) {
-                    if (this._showContentIf['userMessage']) {
-                        this.userMsg = this._showContentIf['userMessage'];
-                        this.showTimeContent = false;
-                    }
+                    this.showTimeContent = false;
                     clearInterval(interval);
                 }
                 if (this.timeOutCounter >= this.TIME_OUT_MAX) {
                     this.showTimeContent = true;
                     clearInterval(interval);
                 }
+                
+
             }, 1000);
         }
     }

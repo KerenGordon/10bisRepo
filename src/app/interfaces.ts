@@ -1,3 +1,4 @@
+import { IOrdersResponse } from './interfaces';
 export interface IStore {
     ID: number;
     Name: string;
@@ -34,8 +35,13 @@ export interface IOrdersPayload {
     startDate: string;
     endDate: string;
 }
-
 export interface IOrdersResponse {
+    Data: IOrderResponse[];
+    Errors: any[];
+    Success: boolean;
+  }
+
+export interface IOrderResponse {
     ID: number;
     EndTime: string;
     EndTimeString: string;

@@ -8,7 +8,7 @@
   </div>
   
   <p class="time-out-msg" *ngIf="showTimeContent && !showContentIf">
-    Something went wrong.
+    {{ onFalseUserMessage }}
   </p>
   <ng-content *ngIf="showContentIf"></ng-content>
 </ng-container>

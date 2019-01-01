@@ -1,7 +1,7 @@
-<app-content-loader class="fade-in" [showContentIf]="ordersTableData?.length > 0 || displayNoDataMessage"> 
-<div class="content-wrapper fade-in">
-  <p *ngIf="displayNoDataMessage"> No orders were found. </p>
-  <table class="table">
+<app-content-loader class="fade-in" [showContentIf]="ordersTableData?.length > 0" onFalseUserMessage="No orders were found."> 
+<div class="content-wrapper">
+  <!-- <p class="fade-in" *ngIf="displayNoDataMessage"> No orders were found. </p> -->
+  <table class="table fade-in">
     <thead>
       <tr>
         <th scope="col" *ngFor="let header of tableHeaders">{{header}}</th>
