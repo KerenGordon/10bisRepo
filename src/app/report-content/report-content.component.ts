@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { IOrderResponse, IOrderDataTable } from '../interfaces';
 import { ExhttpService } from '../exhttp.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SingleOrderViewComponent } from './single-order-view/single-order-view.component';
+import { SingleItemViewComponent } from './single-item-view/single-item-view.component';
 
 const TableHeadersKeyMap = {
   orderId: 'Order ID',
@@ -30,7 +30,7 @@ export class ReportContentComponent implements OnInit {
   ngOnInit() {
     this._httpService.ordersSub$.subscribe((ordersData: IOrderResponse[]) => {
       this.ordersTableData = []
-      if (ordersData && ordersData.length > 0) this.initializeTable(ordersData);
+      if (ordersData.length > 0) this.initializeTable(ordersData);
     });
   }
   
@@ -55,8 +55,9 @@ export class ReportContentComponent implements OnInit {
   }
 
   openSingleView(order) {
-    const modalRef = this.modalService.open(SingleOrderViewComponent);
-    modalRef.componentInstance.order = order;
+    const modalRef = this.modalService.open(SingleItemViewComponent);
+    modalRef.componentInstance.singleItem = order;
+    modalRef.componentInstance.title = 'Order Details';
   }
   
 }

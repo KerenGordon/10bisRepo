@@ -7,8 +7,8 @@ import {Component, OnInit, Input} from '@angular/core';
 })
 export class ContentLoaderComponent implements OnInit {
     
-    @Input() width = 100;
-    @Input() height = 100;
+    @Input() widthPercent = 100;
+    @Input() heightPercent = 100;
     @Input() onFalseUserMessage = 'Something went wrong';
 
     _showContentIf = true;

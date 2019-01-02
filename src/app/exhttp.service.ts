@@ -3,12 +3,12 @@ import { Injectable } from '@angular/core';
 import { IOrdersPayload as IOrderPayload, IHttpGetParams, IStore, IOrderResponse, IOrdersResponse } from './interfaces';
 import { Observable, BehaviorSubject } from 'rxjs';
 
-const Token = 'c30633f5-7bea-8af6-e49c-12e1e42ed0fe';
+const TOKEN = 'c30633f5-7bea-8af6-e49c-12e1e42ed0fe';
 const URL = 'https://10.10.200.108:2121/API/';
-const GetActions = {
-  stores: 'GetStores',
-  pos: 'GetPoses',
-  orders: 'GetOrders'
+const GET_ACTIONS = {
+  STORES: 'GetStores',
+  POS: 'GetPoses',
+  ORDERS: 'GetOrders'
 }
 
 
@@ -18,20 +18,20 @@ const GetActions = {
 export class ExhttpService {
   
   storesSub$ = new BehaviorSubject<IStore[]>([]);
-  ordersSub$ = new BehaviorSubject<IOrderResponse[]>(null);
+  ordersSub$ = new BehaviorSubject<IOrderResponse[]>([]);
   
   constructor(private _http: HttpClient) { }
   
   createParams(actionName, additinalParams?): IHttpGetParams {
     let params: IHttpGetParams;
-    params = { token: Token };
+    params = { token: TOKEN };
     
     switch (actionName) {
-      case GetActions.stores:
+      case GET_ACTIONS.STORES:
       return params;
-      case GetActions.pos:
+      case GET_ACTIONS.POS:
       params.storeId = additinalParams.storeId;
-      case GetActions.orders: 
+      case GET_ACTIONS.ORDERS: 
       // params['posId'] = additinalParams.posId;
       params.posId = 12395;
       params.startDate = additinalParams.startDate;
@@ -41,21 +41,21 @@ export class ExhttpService {
     return params;
   }
   getStores(): void {
-    this._http.get(URL + GetActions.stores, {params : this.createParams(GetActions.stores) as {}})
+    this._http.get(URL + GET_ACTIONS.STORES, {params : this.createParams(GET_ACTIONS.STORES) as {}})
     .subscribe((stores: IStore[]) => this.storesSub$.next(stores));
   }
   
   getPosList(storeId: string): Observable<any> {
-    let params = this.createParams(GetActions.pos, {'storeId': storeId});
-    return this._http.get(URL + GetActions.pos, { 
+    let params = this.createParams(GET_ACTIONS.POS, {'storeId': storeId});
+    return this._http.get(URL + GET_ACTIONS.POS, { 
       params : params as {} 
     });
   }
   
   getOrders(payload: IOrderPayload): void {
     console.log('payload: ', payload);
-    this._http.get(URL + GetActions.orders, { 
-      params : this.createParams(GetActions.orders, payload) as {}
+    this._http.get(URL + GET_ACTIONS.ORDERS, { 
+      params : this.createParams(GET_ACTIONS.ORDERS, payload) as {}
     }).subscribe((orders: IOrdersResponse) => this.ordersSub$.next(orders.Data));
   }
   

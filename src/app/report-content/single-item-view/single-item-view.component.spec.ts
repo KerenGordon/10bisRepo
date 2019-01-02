@@ -1,20 +1,20 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SingleOrderViewComponent } from './single-order-view.component';
+import { SingleItemViewComponent } from './single-item-view.component';
 
-describe('SingleOrderViewComponent', () => {
-  let component: SingleOrderViewComponent;
-  let fixture: ComponentFixture<SingleOrderViewComponent>;
+describe('SingleViewComponent', () => {
+  let component: SingleItemViewComponent;
+  let fixture: ComponentFixture<SingleItemViewComponent>;
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ SingleOrderViewComponent ]
+      declarations: [ SingleItemViewComponent ]
     })
     .compileComponents();
   }));
 
   beforeEach(() => {
-    fixture = TestBed.createComponent(SingleOrderViewComponent);
+    fixture = TestBed.createComponent(SingleItemViewComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });
