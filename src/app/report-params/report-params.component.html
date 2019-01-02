@@ -21,13 +21,19 @@
         </div>
       </div>
       
-      <div class="col-lg-2 fade-in">
-        <input class="form-control datepicker" autocomplete="off" (keypress)="false" placeholder="yyyy-mm-dd" (click)="d.toggle()" name="dp" 
-        formControlName="startDate" ngbDatepicker #d="ngbDatepicker">
+      <div class="input-group col-lg-2 fade-in">
+        <input class="form-control datepicker" autocomplete="off" (keypress)="false" placeholder="yyyy-mm-dd" name="dp"
+        (click)="d.toggle()" formControlName="startDate" ngbDatepicker #d="ngbDatepicker">
+        <div class="input-group-append" (click)="d.toggle()">
+          <button class="btn btn-outline-secondary" type="button"><i class="far fa-calendar-alt"></i></button>
+        </div>
       </div>
-      <div class="col-lg-2 fade-in">
-        <input class="form-control datepicker" autocomplete="off" (keypress)="false" placeholder="yyyy-mm-dd" (click)="e.toggle()" name="dp"
-        [minDate]="ordersForm.controls['startDate'].value" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
+      <div class="input-group col-lg-2 fade-in">
+        <input class="form-control datepicker" autocomplete="off" (keypress)="false" placeholder="yyyy-mm-dd"  name="dp"
+        (click)="e.toggle()" [minDate]="ordersForm.controls['startDate'].value" formControlName="endDate" ngbDatepicker #e="ngbDatepicker">
+        <div class="input-group-append" (click)="e.toggle()">
+            <button class="btn btn-outline-secondary" type="button"><i class="far fa-calendar-alt"></i></button>
+          </div>
       </div>
       
       <button type="submit" [ngClass]="{'btn': true, 'btn-outline-success': ordersForm.valid, 'btn-outline-secondary': !ordersForm.valid}" [disabled]="!ordersForm.valid">Submit</button>
