@@ -1,4 +1,3 @@
-import { IOrdersResponse } from './interfaces';
 export interface IStore {
     ID: number;
     Name: string;
@@ -93,4 +92,15 @@ export interface IHttpGetParams {
     posId?: number;
     startDate?: string;
     endDate?: string;
+}
+export interface IDate {
+    year: number,
+    month: number,
+    day: number
+}
+export interface ISearchFields {
+    endDate: IDate,
+    pos: string,
+    startDate: IDate,
+    storeName: string
 }

@@ -1,6 +1,7 @@
-import { ExhttpService } from './../exhttp.service';
-import { Component, OnInit, Input, ViewChild } from '@angular/core';
-import { IStore, IPOS, IOrdersPayload, IOrderResponse } from '../interfaces';
+import { StateService } from '../services/state.service';
+import { ExhttpService } from '../services/exhttp.service';
+import { Component, OnInit, ViewChild } from '@angular/core';
+import { IStore, IPOS, IOrdersPayload } from '../interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
@@ -24,10 +25,10 @@ export class ReportParamsComponent implements OnInit {
   isSpinnerActive: boolean = false;
   isFormSubmitted: boolean = false;
   
-  constructor(private _httpService: ExhttpService, private _fb: FormBuilder) { }
+  constructor(private _httpService: ExhttpService, private _fb: FormBuilder, private _state: StateService) { }
   
   ngOnInit() {
-    this._httpService.storesSub$.subscribe((storesList: IStore[]) => {
+    this._state.storesSub$.subscribe((storesList: IStore[]) => {
       this.storesList = storesList;
       this.buildForm();
     });
@@ -109,6 +110,7 @@ export class ReportParamsComponent implements OnInit {
   getReport(): void {
     let payload = this.buildReportPayload(); 
     this._httpService.getOrders(payload);
+    this._state.updateCurrentSearchParams(this.ordersForm.value)
     if (!this.isFormSubmitted) this.isFormSubmitted = true;
   }
   

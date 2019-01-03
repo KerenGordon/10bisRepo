@@ -1,8 +1,8 @@
+import { SingleItemViewComponent } from '../../shared/single-item-view/single-item-view.component';
+import { StateService } from '../../services/state.service';
 import { Component, OnInit } from '@angular/core';
-import { IOrderResponse, IOrderDataTable } from '../interfaces';
-import { ExhttpService } from '../exhttp.service';
+import { IOrderResponse, IOrderDataTable } from '../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
-import { SingleItemViewComponent } from './single-item-view/single-item-view.component';
 
 const TableHeadersKeyMap = {
   orderId: 'Order ID',
@@ -22,16 +22,17 @@ const TableHeadersKeyMap = {
 })
 export class ReportContentComponent implements OnInit {
   
-  constructor(private _httpService: ExhttpService, private modalService: NgbModal) { }
+  constructor(private _state: StateService, private modalService: NgbModal) { }
   ordersTableData: IOrderDataTable[];
   tableHeaders: string[];
   tableKeys: string[];
   
   ngOnInit() {
-    this._httpService.ordersSub$.subscribe((ordersData: IOrderResponse[]) => {
+    this._state.ordersSub$.subscribe((ordersData: IOrderResponse[]) => {
       this.ordersTableData = []
       if (ordersData.length > 0) this.initializeTable(ordersData);
     });
+    this._state.getCurrentPosData();
   }
   
   initializeTable(data) {
@@ -54,10 +55,10 @@ export class ReportContentComponent implements OnInit {
     });
   }
 
-  openSingleView(order) {
+  openSingleView(order, titleToDisplay) {
     const modalRef = this.modalService.open(SingleItemViewComponent);
     modalRef.componentInstance.singleItem = order;
-    modalRef.componentInstance.title = 'Order Details';
+    modalRef.componentInstance.title = titleToDisplay;
   }
   
 }

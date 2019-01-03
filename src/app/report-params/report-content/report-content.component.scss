@@ -1,4 +1,4 @@
-@import '../../styles.scss';
+@import '../../../styles.scss';
 
 .content-wrapper {
     height: 65vh;
@@ -9,6 +9,9 @@
         tbody > tr {
             cursor: pointer;
         }
+    }
+    .actions-menu {
+        // position: absolute;
     }
     
 }
