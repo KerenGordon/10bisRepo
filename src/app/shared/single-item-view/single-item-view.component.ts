@@ -1,3 +1,4 @@
+import { UtilsService } from './../../services/utils.service';
 import { Component, OnInit, Input } from '@angular/core';
 import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 
@@ -9,11 +10,16 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class SingleItemViewComponent implements OnInit {
   @Input() singleItem;
   @Input() title = ' ';
-  itemProperties = [];
-  constructor(public activeModal: NgbActiveModal) { }
+  itemProperties;
+  // flattenItem;
+  constructor(public activeModal: NgbActiveModal, private _utils: UtilsService) { }
   
   ngOnInit() {
-    this.itemProperties = Object.keys(this.singleItem);
+    // this.buildData();
+    this.itemProperties = Object.keys(this.singleItem).filter(item => !this.isObject(item));
+  }
+  isObject(field) {
+    return typeof this.singleItem[field] === 'object';
   }
 
 }

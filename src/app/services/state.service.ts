@@ -1,3 +1,5 @@
+import { IOrdersPayload, IOrdersResponse } from './../interfaces';
+import { ExhttpService } from './exhttp.service';
 import { Injectable } from '@angular/core';
 import { IOrderResponse, IStore, ISearchFields as ISearchParams, IPOS } from '../interfaces';
 import { BehaviorSubject } from 'rxjs';
@@ -10,8 +12,15 @@ export class StateService {
   ordersSub$ = new BehaviorSubject<IOrderResponse[]>([]);
   currentSearchParams$ = new BehaviorSubject<ISearchParams>(null);
   
-  constructor() { }
+  constructor(private _httpService: ExhttpService) { }
 
+  getStores() {
+    this._httpService.getStores().subscribe((stores: IStore[]) => this.storesSub$.next(stores));
+  }
+
+  getOrders(payload: IOrdersPayload) {
+    this._httpService.getOrders((payload)).subscribe((orders: IOrdersResponse) => this.ordersSub$.next(orders.Data));
+  }
 
   updateCurrentSearchParams(params: ISearchParams) {
     this.currentSearchParams$.next(params);

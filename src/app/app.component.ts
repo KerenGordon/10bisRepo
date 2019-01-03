@@ -1,3 +1,4 @@
+import { StateService } from './services/state.service';
 import { Component, OnInit } from '@angular/core';
 import { ExhttpService } from './services/exhttp.service';
 
@@ -8,11 +9,11 @@ import { ExhttpService } from './services/exhttp.service';
 })
 export class AppComponent implements OnInit {
   
-  constructor(private _httpService: ExhttpService) {}
+  constructor(private _state: StateService) {}
 
   title = 'paypo-app';
 
   ngOnInit() {
-    this._httpService.getStores();
+    this._state.getStores();
   }
 }

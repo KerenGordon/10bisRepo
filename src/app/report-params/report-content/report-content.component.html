@@ -4,16 +4,16 @@
     <table class="table fade-in">
       <thead>
         <tr>
-          <th><i class="fas fa-desktop" (click)="openSingleView(order, 'POS Details')" ngbTooltip="View POS details"></i></th>
+          <th><i class="fas fa-desktop" (click)="openPosDetails()" ngbTooltip="View POS details"></i></th>
           <th *ngFor="let header of tableHeaders">{{header}}</th>
         </tr>
       </thead>
       <tbody>
         <tr *ngFor="let order of ordersTableData">
           <td class="actions-menu">
-            <i class="fas fa-info" (click)="openSingleView(order, 'Order Details')" ngbTooltip="View order details"></i>
+            <i class="fas fa-info" (click)="openOrderSingleView(order)" ngbTooltip="View order details"></i>
           </td> 
-          <td *ngFor="let key of tableKeys"> {{ order[key] }} </td> 
+          <td *ngFor="let key of tableKeys"> {{ order[key] || 'No Data' }} </td> 
         </tr>
       </tbody>
     </table>

@@ -55,10 +55,17 @@ export class ReportContentComponent implements OnInit {
     });
   }
 
-  openSingleView(order, titleToDisplay) {
+  openOrderSingleView(order) {
     const modalRef = this.modalService.open(SingleItemViewComponent);
     modalRef.componentInstance.singleItem = order;
-    modalRef.componentInstance.title = titleToDisplay;
+    modalRef.componentInstance.title = 'Order Details';
+  }
+
+  openPosDetails() {
+    const modalRef = this.modalService.open(SingleItemViewComponent);
+    modalRef.componentInstance.singleItem = this._state.getCurrentPosData();;
+    modalRef.componentInstance.title = 'POS Details';
+    
   }
   
 }

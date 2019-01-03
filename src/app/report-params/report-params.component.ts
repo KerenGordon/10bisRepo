@@ -25,7 +25,7 @@ export class ReportParamsComponent implements OnInit {
   isSpinnerActive: boolean = false;
   isFormSubmitted: boolean = false;
   
-  constructor(private _httpService: ExhttpService, private _fb: FormBuilder, private _state: StateService) { }
+  constructor(private _fb: FormBuilder, private _state: StateService) { }
   
   ngOnInit() {
     this._state.storesSub$.subscribe((storesList: IStore[]) => {
@@ -109,7 +109,7 @@ export class ReportParamsComponent implements OnInit {
   
   getReport(): void {
     let payload = this.buildReportPayload(); 
-    this._httpService.getOrders(payload);
+    this._state.getOrders(payload);
     this._state.updateCurrentSearchParams(this.ordersForm.value)
     if (!this.isFormSubmitted) this.isFormSubmitted = true;
   }

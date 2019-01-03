@@ -1,4 +1,3 @@
-import { StateService } from './state.service';
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { IOrdersPayload as IOrderPayload, IHttpGetParams, IStore, IOrdersResponse } from '../interfaces';
@@ -18,7 +17,7 @@ const GET_ACTIONS = {
 })
 export class ExhttpService {
   
-  constructor(private _http: HttpClient, private _state: StateService) { }
+  constructor(private _http: HttpClient) { }
   
   createParams(actionName, additinalParams?): IHttpGetParams {
     let params: IHttpGetParams;
@@ -38,9 +37,10 @@ export class ExhttpService {
     }
     return params;
   }
-  getStores(): void {
-    this._http.get(URL + GET_ACTIONS.STORES, {params : this.createParams(GET_ACTIONS.STORES) as {}})
-    .subscribe((stores: IStore[]) => this._state.storesSub$.next(stores));
+  getStores(): Observable<any> {
+    return this._http.get(URL + GET_ACTIONS.STORES, {
+      params : this.createParams(GET_ACTIONS.STORES) as {}
+    });
   }
   
   getPosList(storeId: string): Observable<any> {
@@ -50,10 +50,10 @@ export class ExhttpService {
     });
   }
   
-  getOrders(payload: IOrderPayload): void {
-    this._http.get(URL + GET_ACTIONS.ORDERS, { 
+  getOrders(payload: IOrderPayload): Observable<any> {
+    return this._http.get(URL + GET_ACTIONS.ORDERS, { 
       params : this.createParams(GET_ACTIONS.ORDERS, payload) as {}
-    }).subscribe((orders: IOrdersResponse) => this._state.ordersSub$.next(orders.Data));
+    })
   }
   
 }

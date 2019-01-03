@@ -1,17 +1,35 @@
 @import '../../../styles.scss';
 
-.content-wrapper {
-    height: 65vh;
-    overflow-y: auto;
-    .table {
-        width: 100%;
-        margin-bottom: 1rem;
-        tbody > tr {
-            cursor: pointer;
-        }
-    }
-    .actions-menu {
-        // position: absolute;
-    }
-    
+
+table{
+    // width: 400px;
+    table-layout: fixed;
+    border-collapse: collapse;
+    height: 60vh;
 }
+
+table tbody{
+  display:block;
+  width: 100%;
+  overflow: auto;
+  height: 58vh;
+}
+table thead {
+    height: 2vh;
+}
+table thead tr, tbody tr {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+}
+
+
+table th, table td {
+    text-align: center;
+    font-size: 0.9em;
+    padding: 0;
+    width: 150px;
+}
+td:nth-child(1), th:nth-child(1) { width: 50px !important }
+td:nth-child(3), th:nth-child(3) { width: 150px !important }
+td:nth-child(4), th:nth-child(4) { width: 150px !important }

@@ -3,9 +3,8 @@ import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 import { HttpClientModule } from '@angular/common/http';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
-import { PerfectScrollbarModule } from 'ngx-perfect-scrollbar';
+// import { PerfectScrollbarModule, PERFECT_SCROLLBAR_CONFIG, PerfectScrollbarConfigInterface } from 'ngx-perfect-scrollbar';
 import { AppRoutingModule } from './app-routing.module';
-
 
 
 import { AppComponent } from './app.component';
@@ -14,7 +13,9 @@ import { SingleItemViewComponent } from './shared/single-item-view/single-item-v
 import { ContentLoaderComponent } from './shared/content-loader/content-loader.component';
 import { ReportContentComponent } from './report-params/report-content/report-content.component';
 
-
+// const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
+//   suppressScrollX: true
+// };
 
 @NgModule({
   declarations: [
@@ -30,11 +31,16 @@ import { ReportContentComponent } from './report-params/report-content/report-co
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    PerfectScrollbarModule,
+    // PerfectScrollbarModule,
     NgbModule.forRoot()
 
   ],
-  providers: [],
+  providers: [
+    // {
+    //   provide: PERFECT_SCROLLBAR_CONFIG,
+    //   useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
+    // }
+  ],
   entryComponents: [SingleItemViewComponent],
   bootstrap: [AppComponent]
 })
