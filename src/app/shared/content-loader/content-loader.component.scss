@@ -1,27 +1,35 @@
 .spinner-wrapper{
-  height: 100%;
-  width: 100%;
-  position: absolute;
-  display: flex;
-  flex-direction: column;
-  background-color: transparent;
-  justify-content: center;
-  align-items: center;
-  left: 0;
-  top: 0;
-  right: 0;
+    position: absolute;
+    display: flex;
+    flex-direction: column;
+    background-color: transparent;
+    justify-content: center;
+    align-items: center;
+    left: 0;
+    top: 0;
+    right: 0;
+    bottom: 0;
+    height: fit-content;
+    width: fit-content;
   .spinner{
-    margin: 0 auto;
+    margin: auto;
     text-align: center;
   }
   .loading-title {
-    padding: 1em;
+    position: absolute;
+    margin: auto;
+    top: 5em;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: fit-content;
+    width: fit-content;
   }
 }
 
 .time-out-msg {
   @extend .spinner-wrapper;
-  margin: 0;
+  margin: auto;
   
 }
 

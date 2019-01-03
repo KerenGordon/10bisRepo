@@ -33,3 +33,7 @@ table th, table td {
 td:nth-child(1), th:nth-child(1) { width: 50px !important }
 td:nth-child(3), th:nth-child(3) { width: 150px !important }
 td:nth-child(4), th:nth-child(4) { width: 150px !important }
+
+.actions-menu {
+    cursor: pointer;
+}

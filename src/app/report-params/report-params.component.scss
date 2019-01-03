@@ -5,14 +5,14 @@
 .content-wrapper {
     @extend .flex-col-space-between;
     justify-content: flex-start;
-    padding: 0 1em;
     .form {
         display: flex;
         flex-direction: row;
         justify-content: space-between;
-        z-index: 1;
+        // z-index: 1;
         box-sizing: border-box;
         width: 100%;
+        padding: 1em;
         .col-lg-4, .col-lg-2 {
             padding: 0;
         }
