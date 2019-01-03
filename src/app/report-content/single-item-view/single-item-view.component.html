@@ -3,9 +3,9 @@
     <h2 class="modal-title"> {{ title }} </h2>
   </div>
   <div class="modal-body">
-    <div class="field" *ngFor="let field of itemProperties"> 
-      <h6 class="field-title"> {{ field }} </h6>
-      <p class="value"> {{ singleItem[field] }} </p>
+    <div class="field" *ngFor="let fieldName of itemProperties"> 
+      <h6 class="field-title"> {{ fieldName }} </h6>
+      <p class="field-value"> {{ singleItem[fieldName] }} </p> 
     </div>
   </div>
   <div class="modal-footer">

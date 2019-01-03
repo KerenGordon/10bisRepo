@@ -9,7 +9,7 @@ export class ContentLoaderComponent implements OnInit {
     
     @Input() widthPercent = 100;
     @Input() heightPercent = 100;
-    @Input() onFalseUserMessage = 'Something went wrong';
+    @Input() onFalseUserMessage = 'Something went wrong.';
 
     _showContentIf = true;
     @Input() set showContentIf(value: boolean) {
