@@ -1,4 +1,4 @@
-import { SingleItemViewComponent } from '../../shared/single-item-view/single-item-view.component';
+import { ModalViewComponent } from './../../shared/modal-view/modal-view.component';
 import { StateService } from '../../services/state.service';
 import { Component, OnInit } from '@angular/core';
 import { IOrderResponse, IOrderDataTable } from '../../interfaces';
@@ -56,14 +56,14 @@ export class ReportContentComponent implements OnInit {
   }
 
   openOrderSingleView(order) {
-    const modalRef = this.modalService.open(SingleItemViewComponent);
-    modalRef.componentInstance.singleItem = order;
+    const modalRef = this.modalService.open(ModalViewComponent);
+    modalRef.componentInstance.dataToDisplay = order;
     modalRef.componentInstance.title = 'Order Details';
   }
 
   openPosDetails() {
-    const modalRef = this.modalService.open(SingleItemViewComponent);
-    modalRef.componentInstance.singleItem = this._state.getCurrentPosData();;
+    const modalRef = this.modalService.open(ModalViewComponent);
+    modalRef.componentInstance.dataToDisplay = this._state.getCurrentPosData();;
     modalRef.componentInstance.title = 'POS Details';
     
   }

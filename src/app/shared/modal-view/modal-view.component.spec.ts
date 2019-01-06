@@ -1,6 +1,6 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { SingleItemViewComponent } from './single-item-view.component';
+import { SingleItemViewComponent } from './modal-view.component';
 
 describe('SingleViewComponent', () => {
   let component: SingleItemViewComponent;

@@ -9,9 +9,9 @@ import { AppRoutingModule } from './app-routing.module';
 
 import { AppComponent } from './app.component';
 import { ReportParamsComponent } from './report-params/report-params.component';
-import { SingleItemViewComponent } from './shared/single-item-view/single-item-view.component';
 import { ContentLoaderComponent } from './shared/content-loader/content-loader.component';
 import { ReportContentComponent } from './report-params/report-content/report-content.component';
+import { ModalViewComponent } from './shared/modal-view/modal-view.component';
 
 // const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
 //   suppressScrollX: true
@@ -23,7 +23,7 @@ import { ReportContentComponent } from './report-params/report-content/report-co
     ReportParamsComponent,
     ReportContentComponent,
     ContentLoaderComponent,
-    SingleItemViewComponent,
+    ModalViewComponent,
     ],
   imports: [
     BrowserModule,
@@ -41,7 +41,7 @@ import { ReportContentComponent } from './report-params/report-content/report-co
     //   useValue: DEFAULT_PERFECT_SCROLLBAR_CONFIG
     // }
   ],
-  entryComponents: [SingleItemViewComponent],
+  entryComponents: [ModalViewComponent],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
