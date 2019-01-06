@@ -4,16 +4,37 @@ import { Component, OnInit } from '@angular/core';
 import { IOrderResponse, IOrderDataTable } from '../../interfaces';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
-const TableHeadersKeyMap = {
-  orderId: 'Order ID',
-  startDate: 'Start Date',
-  endDate: 'End Date',
-  customerName: 'Customer Name',
-  orderType: 'Order Type',
-  phoneNumber: 'Phone Number',
-  orderSum: 'Sum'
-  
-}
+const TableKeyMap = [
+  {
+    name: 'orderId',
+    title: 'Order ID',
+    isMandatoryDisplayField: true
+  }, {
+    name: 'startDate',
+    title: 'Start Date',
+    isMandatoryDisplayField: true
+  }, {
+    name: 'endDate',
+    title: 'End Date',
+    isMandatoryDisplayField: true
+  }, {
+    name: 'customerName',
+    title:'Customer Name',
+    isMandatoryDisplayField: false
+  }, {
+    name: 'orderType',
+    title: 'Order Type',
+    isMandatoryDisplayField: false
+  }, {
+    name: 'phoneNumber',
+    title: 'Phone Number',
+    isMandatoryDisplayField: false
+  }, {
+    name: 'orderSum',
+    title: 'Order Type',
+    isMandatoryDisplayField: true
+  }
+]
 
 @Component({
   selector: 'app-report-content',
@@ -24,8 +45,7 @@ export class ReportContentComponent implements OnInit {
   
   constructor(private _state: StateService, private modalService: NgbModal) { }
   ordersTableData: IOrderDataTable[];
-  tableHeaders: string[];
-  tableKeys: string[];
+  tableKeyMap = [];
   
   ngOnInit() {
     this._state.ordersSub$.subscribe((ordersData: IOrderResponse[]) => {
@@ -36,9 +56,9 @@ export class ReportContentComponent implements OnInit {
   }
   
   initializeTable(data) {
+    this.tableKeyMap = TableKeyMap;
+    console.log('TableKeyMap: ', TableKeyMap);
     this.buildTableData(data);
-    this.tableHeaders = Object.values(TableHeadersKeyMap);
-    this.tableKeys = Object.keys(TableHeadersKeyMap)
   }
   
   buildTableData(orders) {

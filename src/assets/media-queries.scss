@@ -1,0 +1,13 @@
+// Small Devices 
+@media only screen and (max-width : 1024px) {
+    .th-mq, .td-mq {
+        display: none;
+    }
+    .form {
+        justify-content: space-evenly !important;
+        .col-lg-2, .col-lg-4, .submit {
+            flex: 0 0 49%;
+            padding: 0.5em 0 !important;
+        }
+    }
+}

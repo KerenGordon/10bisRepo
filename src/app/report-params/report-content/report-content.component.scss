@@ -5,14 +5,13 @@ table{
     // width: 400px;
     table-layout: fixed;
     border-collapse: collapse;
-    height: 60vh;
 }
 
 table tbody{
   display:block;
   width: 100%;
   overflow: auto;
-  height: 58vh;
+  height: 45vh;
 }
 table thead {
     height: 2vh;

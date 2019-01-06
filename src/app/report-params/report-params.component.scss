@@ -3,7 +3,9 @@
     height: 100%;
 }
 .content-wrapper {
-    @extend .flex-col-space-between;
+    height: 100%;
+    display: flex;
+    flex-direction: column;
     justify-content: flex-start;
     .form {
         display: flex;
@@ -12,6 +14,7 @@
         // z-index: 1;
         box-sizing: border-box;
         width: 100%;
+        // height: 40%;
         padding: 1em;
         .col-lg-4, .col-lg-2 {
             padding: 0;
@@ -31,18 +34,23 @@
                 bottom: 0;
             }
         }
-        
+        .datepicker {
+            z-index: 1;
+        }
         .ngb-dropdown-menu {
             max-height: 15em;
             overflow-y: auto;
             // .dropdown-item {
-            //     width: 16em;
-            //     overflow: hidden;
-            //     text-overflow: ellipsis;
-            //     white-space: nowrap; 
+                //     width: 16em;
+                //     overflow: hidden;
+                //     text-overflow: ellipsis;
+                //     white-space: nowrap; 
                 
-            // }
+                // }
+            }
         }
+        .report-content {
+            height: 60%;
+        }
+        
     }
-
-}

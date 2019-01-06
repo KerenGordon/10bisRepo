@@ -10,14 +10,14 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
 export class ModalViewComponent implements OnInit {
   @Input() dataToDisplay;
   @Input() title = ' ';
-  dataProperties;
+  dataProperties = [];
   constructor(public activeModal: NgbActiveModal, private _utils: UtilsService) { }
   
   ngOnInit() {
     this.dataProperties = Object.keys(this.dataToDisplay).filter(item => !this.isObject(item));
   }
   isObject(field) {
-    return typeof this.dataToDisplay[field] === 'object';
+    return this._utils.isObject(this.dataToDisplay[field]);
   }
 
 }
