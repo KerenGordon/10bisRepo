@@ -9,11 +9,11 @@ import { ExhttpService } from './services/exhttp.service';
 })
 export class AppComponent implements OnInit {
   
-  constructor(private _state: StateService) {}
+  constructor(private state: StateService) {}
 
   title = 'paypo-app';
 
   ngOnInit() {
-    this._state.getStores();
+    this.state.getStores();
   }
 }

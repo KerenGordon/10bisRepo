@@ -17,7 +17,7 @@ const GET_ACTIONS = {
 })
 export class ExhttpService {
   
-  constructor(private _http: HttpClient) { }
+  constructor(private http: HttpClient) { }
   
   createParams(actionName, additinalParams?): IHttpGetParams {
     let params: IHttpGetParams;
@@ -38,20 +38,20 @@ export class ExhttpService {
     return params;
   }
   getStores(): Observable<any> {
-    return this._http.get(URL + GET_ACTIONS.STORES, {
+    return this.http.get(URL + GET_ACTIONS.STORES, {
       params : this.createParams(GET_ACTIONS.STORES) as {}
     });
   }
   
   getPosList(storeId: string): Observable<any> {
     let params = this.createParams(GET_ACTIONS.POS, {'storeId': storeId});
-    return this._http.get(URL + GET_ACTIONS.POS, { 
+    return this.http.get(URL + GET_ACTIONS.POS, { 
       params : params as {} 
     });
   }
   
   getOrders(payload: IOrderPayload): Observable<any> {
-    return this._http.get(URL + GET_ACTIONS.ORDERS, { 
+    return this.http.get(URL + GET_ACTIONS.ORDERS, { 
       params : this.createParams(GET_ACTIONS.ORDERS, payload) as {}
     })
   }

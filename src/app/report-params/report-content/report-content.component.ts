@@ -43,16 +43,16 @@ const TableKeyMap = [
 })
 export class ReportContentComponent implements OnInit {
   
-  constructor(private _state: StateService, private modalService: NgbModal) { }
+  constructor(private state: StateService, private modalService: NgbModal) { }
   ordersTableData: IOrderDataTable[];
   tableKeyMap = [];
   
   ngOnInit() {
-    this._state.ordersSub$.subscribe((ordersData: IOrderResponse[]) => {
+    this.state.ordersSub$.subscribe((ordersData: IOrderResponse[]) => {
       this.ordersTableData = []
       if (ordersData.length > 0) this.initializeTable(ordersData);
     });
-    this._state.getCurrentPosData();
+    this.state.getCurrentPosData();
   }
   
   initializeTable(data) {
@@ -83,7 +83,7 @@ export class ReportContentComponent implements OnInit {
 
   openPosDetails() {
     const modalRef = this.modalService.open(ModalViewComponent);
-    modalRef.componentInstance.dataToDisplay = this._state.getCurrentPosData();;
+    modalRef.componentInstance.dataToDisplay = this.state.getCurrentPosData();;
     modalRef.componentInstance.title = 'POS Details';
     
   }

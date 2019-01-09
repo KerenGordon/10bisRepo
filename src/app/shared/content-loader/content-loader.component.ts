@@ -11,21 +11,21 @@ export class ContentLoaderComponent implements OnInit {
     @Input() heightPercent = 100;
     @Input() onFalseUserMessage = 'Something went wrong.';
 
-    _showContentIf = true;
+    showContentIfValue = true;
     @Input() set showContentIf(value: boolean) {
-        this._showContentIf = value;
+        this.showContentIfValue = value;
         if (!this.showContentIf) {
             this.checkForTimeOut();
         }
     }
+    get showContentIf(): boolean {
+        return this.showContentIfValue;
+    }
     
-    timeOutCounter = 0;
-    TIME_OUT_MAX = 5;
+    timeoutCounter = 0;
+    timeoutMax = 5;
     showTimeContent = false;
 
-    get showContentIf(): boolean {
-        return this._showContentIf;
-    }
 
     constructor() {
     }
@@ -37,14 +37,14 @@ export class ContentLoaderComponent implements OnInit {
     checkForTimeOut() {
         let interval;
         this.showTimeContent = false;
-        if (!this._showContentIf) {
+        if (!this.showContentIfValue) {
             interval = setInterval(() => {
-                this.timeOutCounter++;
-                if (this._showContentIf) {
+                this.timeoutCounter++;
+                if (this.showContentIfValue) {
                     this.showTimeContent = false;
                     clearInterval(interval);
                 }
-                if (this.timeOutCounter >= this.TIME_OUT_MAX) {
+                if (this.timeoutCounter >= this.timeoutMax) {
                     this.showTimeContent = true;
                     clearInterval(interval);
                 }

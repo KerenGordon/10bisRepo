@@ -12,14 +12,14 @@ export class StateService {
   ordersSub$ = new BehaviorSubject<IOrderResponse[]>([]);
   currentSearchParams$ = new BehaviorSubject<ISearchParams>(null);
   
-  constructor(private _httpService: ExhttpService) { }
+  constructor(private httpService: ExhttpService) { }
 
   getStores() {
-    this._httpService.getStores().subscribe((stores: IStore[]) => this.storesSub$.next(stores));
+    this.httpService.getStores().subscribe((stores: IStore[]) => this.storesSub$.next(stores));
   }
 
   getOrders(payload: IOrdersPayload) {
-    this._httpService.getOrders((payload)).subscribe((orders: IOrdersResponse) => this.ordersSub$.next(orders.Data));
+    this.httpService.getOrders((payload)).subscribe((orders: IOrdersResponse) => this.ordersSub$.next(orders.Data));
   }
 
   updateCurrentSearchParams(params: ISearchParams) {

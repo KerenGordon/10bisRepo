@@ -11,13 +11,13 @@ export class ModalViewComponent implements OnInit {
   @Input() dataToDisplay;
   @Input() title = ' ';
   dataProperties = [];
-  constructor(public activeModal: NgbActiveModal, private _utils: UtilsService) { }
+  constructor(public activeModal: NgbActiveModal, private utils: UtilsService) { }
   
   ngOnInit() {
     this.dataProperties = Object.keys(this.dataToDisplay).filter(item => !this.isObject(item));
   }
   isObject(field) {
-    return this._utils.isObject(this.dataToDisplay[field]);
+    return this.utils.isObject(this.dataToDisplay[field]);
   }
 
 }

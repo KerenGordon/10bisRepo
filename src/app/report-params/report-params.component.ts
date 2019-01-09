@@ -25,17 +25,17 @@ export class ReportParamsComponent implements OnInit {
   isSpinnerActive: boolean = false;
   isFormSubmitted: boolean = false;
   
-  constructor(private _fb: FormBuilder, private _state: StateService) { }
+  constructor(private formBuilder: FormBuilder, private state: StateService) { }
   
   ngOnInit() {
-    this._state.storesSub$.subscribe((storesList: IStore[]) => {
+    this.state.storesSub$.subscribe((storesList: IStore[]) => {
       this.storesList = storesList;
       this.buildForm();
     });
   };
   
   buildForm(): void {
-    this.ordersForm = this._fb.group({
+    this.ordersForm = this.formBuilder.group({
       storeName: [null, Validators.required],
       pos: [{value: null, disabled: true}, Validators.required],
       startDate: [null, Validators.required],
@@ -109,8 +109,8 @@ export class ReportParamsComponent implements OnInit {
   
   getReport(): void {
     let payload = this.buildReportPayload(); 
-    this._state.getOrders(payload);
-    this._state.updateCurrentSearchParams(this.ordersForm.value)
+    this.state.getOrders(payload);
+    this.state.updateCurrentSearchParams(this.ordersForm.value)
     if (!this.isFormSubmitted) this.isFormSubmitted = true;
   }
   
