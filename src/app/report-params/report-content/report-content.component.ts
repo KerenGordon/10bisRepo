@@ -31,7 +31,7 @@ const TableKeyMap = [
     isMandatoryDisplayField: false
   }, {
     name: 'orderSum',
-    title: 'Order Type',
+    title: 'Order Sum',
     isMandatoryDisplayField: true
   }
 ]

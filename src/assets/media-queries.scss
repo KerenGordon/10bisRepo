@@ -1,13 +1,55 @@
-// Small Devices 
-@media only screen and (max-width : 1024px) {
+// Ipads
+@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
     .th-mq, .td-mq {
         display: none;
     }
+    .content-wrapper {
+        align-items: center !important;
+    }
     .form {
+        justify-content: space-evenly;
+        .col-lg-2, .col-lg-4, .submit {
+            flex: 0 0 49% !important;
+            padding-bottom: 0.5em !important;
+        }
+    }
+}
+
+
+// Smartphones 
+@media only screen and (min-device-width : 320px) and (max-device-width : 767px) {
+    .th-mq, .td-mq {
+        display: none;
+    }
+    .main-container .title {
+        height: auto !important;      
+        font-size: 2em;
+    }
+    
+    .sub-container { 
+        height: auto !important;
+    }
+    .content-wrapper {
+        align-items: center !important;
+    }
+    .form {
+        padding: 1em 0 !important;
+        div.datepicker:nth-child(3) {
+            z-index: 2 !important;
+        }
+        flex-direction: column !important;
         justify-content: space-evenly !important;
         .col-lg-2, .col-lg-4, .submit {
-            flex: 0 0 49%;
-            padding: 0.5em 0 !important;
+            flex: 0 0 49% !important;
+            padding-bottom: 0.5em !important;
         }
+    }
+    .table tbody {
+        overflow: scroll !important;
+        height: 30vh;
+    }
+
+    .order-view .modal-body .field-wrapper {
+        flex-direction: column !important;
     }
 }
