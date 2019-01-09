@@ -8,16 +8,17 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./modal-view.component.scss']
 })
 export class ModalViewComponent implements OnInit {
-  @Input() dataToDisplay;
-  @Input() title = ' ';
-  dataProperties = [];
+  @Input() dataToDisplay: Object;
+  @Input() title: string = ' ';
+  fieldNames: Array<string> = [];
   constructor(public activeModal: NgbActiveModal, private utils: UtilsService) { }
   
   ngOnInit() {
-    this.dataProperties = Object.keys(this.dataToDisplay).filter(item => !this.isObject(item));
+    this.fieldNames = Object.keys(this.dataToDisplay).filter(field => !this.isFieldValueAnObject(field));
   }
-  isObject(field) {
-    return this.utils.isObject(this.dataToDisplay[field]);
+  isFieldValueAnObject(field) {
+    let fieldValue = this.dataToDisplay[field];
+    return this.utils.isObject(fieldValue);
   }
 
 }

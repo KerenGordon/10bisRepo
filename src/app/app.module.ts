@@ -8,9 +8,10 @@ import { AppRoutingModule } from './app-routing.module';
 
 
 import { AppComponent } from './app.component';
-import { ReportParamsComponent } from './report-params/report-params.component';
+import { ReportParamsComponent } from './report-content/report-params/report-params.component';
+
 import { ContentLoaderComponent } from './shared/content-loader/content-loader.component';
-import { ReportContentComponent } from './report-params/report-content/report-content.component';
+import { ReportTableComponent } from './report-content/report-table/report-table.component';
 import { ModalViewComponent } from './shared/modal-view/modal-view.component';
 
 // const DEFAULT_PERFECT_SCROLLBAR_CONFIG: PerfectScrollbarConfigInterface = {
@@ -21,7 +22,7 @@ import { ModalViewComponent } from './shared/modal-view/modal-view.component';
   declarations: [
     AppComponent,
     ReportParamsComponent,
-    ReportContentComponent,
+    ReportTableComponent,
     ContentLoaderComponent,
     ModalViewComponent,
     ],

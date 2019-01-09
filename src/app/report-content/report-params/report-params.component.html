@@ -2,6 +2,7 @@
 <app-content-loader class="content-loader" [showContentIf]="storesList.length && ordersForm"> 
   <div class="content-wrapper">
     <form class="row form" [formGroup]="ordersForm" (ngSubmit)="getReport()">
+      
       <div class="col-lg-4 input-wrapper" ngbDropdown #suggestionsMenu="ngbDropdown">
         <input ngbDropdownAnchor autofocus type="text" formControlName="storeName" class="form-control" placeholder="Search for a store..."
         (focus)="subscribeToStoreInputChanges()" (focusout)="unsubscribeFromStoreNameInput()">
@@ -39,6 +40,6 @@
       
       <button type="submit" [ngClass]="{'btn submit': true, 'btn-outline-success': ordersForm.valid, 'btn-outline-secondary': !ordersForm.valid}" [disabled]="!ordersForm.valid">Submit</button>
     </form>
-    <app-report-content *ngIf="isFormSubmitted" class="report-content"> </app-report-content>
+    <app-report-table *ngIf="isFormSubmitted" class="report-content"> </app-report-table>
   </div>
 </app-content-loader>

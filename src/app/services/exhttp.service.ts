@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { IOrdersPayload as IOrderPayload, IHttpGetParams, IStore, IOrdersResponse } from '../interfaces';
+import { IOrdersPayload as IOrderPayload, IHttpGetParams } from '../interfaces';
 import { Observable } from 'rxjs';
 
 const TOKEN = 'c30633f5-7bea-8af6-e49c-12e1e42ed0fe';

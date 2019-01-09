@@ -1,14 +1,14 @@
 
 <ng-container>
-  <div class="spinner-wrapper fade-in" *ngIf="!showContentIf && !showTimeContent"  [ngStyle]="{'height.%': heightPercent , 'width.%': widthPercent }">
+    <div class="spinner-wrapper fade-in" *ngIf="!isShowContent && !showTimeoutContent"  [ngStyle]="{'height.%': heightPercent , 'width.%': widthPercent }">
     <svg class="spinner" class="spinner fade-in" width="70px" height="70px" viewBox="0 0 66 66">
       <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
     </svg>
     <h2 class="loading-title"> Loading... </h2>
   </div>
   
-  <p class="time-out-msg" *ngIf="showTimeContent && !showContentIf">
+  <p class="time-out-msg" *ngIf="!isShowContent && showTimeoutContent">
     {{ onFalseUserMessage }}
   </p>
-  <ng-content *ngIf="showContentIf"></ng-content>
+  <ng-content *ngIf="isShowContent"></ng-content>
 </ng-container>

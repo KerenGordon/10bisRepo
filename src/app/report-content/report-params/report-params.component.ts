@@ -1,7 +1,6 @@
-import { StateService } from '../services/state.service';
-import { ExhttpService } from '../services/exhttp.service';
+import { StateService } from '../../services/state.service';
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { IStore, IPOS, IOrdersPayload } from '../interfaces';
+import { IStore, IPOS, IOrdersPayload } from '../../interfaces';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { debounceTime } from 'rxjs/operators';
 import { NgbDropdown } from '@ng-bootstrap/ng-bootstrap';
@@ -33,7 +32,6 @@ export class ReportParamsComponent implements OnInit {
       this.buildForm();
     });
   };
-  
   buildForm(): void {
     this.ordersForm = this.formBuilder.group({
       storeName: [null, Validators.required],
@@ -42,17 +40,14 @@ export class ReportParamsComponent implements OnInit {
       endDate: [null, Validators.required]
     });
   }
-  
   subscribeToStoreInputChanges(): void {
     if (!this.inputSub$ || this.inputSub$.closed) {
-      this.inputSub$ = this.ordersForm.get('storeName').valueChanges.pipe(debounceTime(100)).subscribe(input => this.searchStore(input));
+      this.inputSub$ = this.ordersForm.get('storeName').valueChanges.subscribe(input => this.searchStore(input));
     }
   }
-  
   unsubscribeFromStoreNameInput(): void {
     if (this.inputSub$) this.inputSub$.unsubscribe();
   }
-  
   searchStore(searchsStr): void {
     searchsStr = searchsStr.trim();
     this.isSpinnerActive = true;
@@ -79,41 +74,35 @@ export class ReportParamsComponent implements OnInit {
       this.isSpinnerActive = false;
     }, 1000);
   }
-  
   selectStore(store): void {
     this.updateCurrentStoreParams(store);
     this.suggestionsMenu.close();
     this.unsubscribeFromStoreNameInput();
   }
-  
   resetSearchParams(): void {
     this.ordersForm.get('pos').disable();
     this.storePosList = null;
     this.availableStoresSuggestion = null;
   }
-  
   updateCurrentStoreParams(currentStore: IStore): void {
     this.ordersForm.get('pos').enable();
     this.ordersForm.get('storeName').setValue(currentStore.Name);
     this.storePosList = currentStore.POSList;
     this.isSpinnerActive = false;
   }
-  updateSuggestionsMenu(availableStores): void {
+  updateSuggestionsMenu(availableStores: IStore[]): void {
     this.availableStoresSuggestion = availableStores;
     if (!this.suggestionsMenu.isOpen()) this.suggestionsMenu.open();
   }
-  
   selectPos(pos: IPOS): void {
     this.ordersForm.get('pos').setValue(pos.Name);
   }
-  
   getReport(): void {
     let payload = this.buildReportPayload(); 
     this.state.getOrders(payload);
     this.state.updateCurrentSearchParams(this.ordersForm.value)
     if (!this.isFormSubmitted) this.isFormSubmitted = true;
   }
-  
   buildReportPayload(): IOrdersPayload {
     let payload = {} as IOrdersPayload;
     let startDate = this.ordersForm.get('startDate').value;
@@ -125,7 +114,6 @@ export class ReportParamsComponent implements OnInit {
     
     return payload;
   }
-  
 }
 
 

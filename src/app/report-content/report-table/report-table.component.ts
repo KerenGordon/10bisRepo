@@ -1,4 +1,4 @@
-import { ModalViewComponent } from './../../shared/modal-view/modal-view.component';
+import { ModalViewComponent } from '../../shared/modal-view/modal-view.component';
 import { StateService } from '../../services/state.service';
 import { Component, OnInit } from '@angular/core';
 import { IOrderResponse, IOrderDataTable } from '../../interfaces';
@@ -37,31 +37,25 @@ const TableKeyMap = [
 ]
 
 @Component({
-  selector: 'app-report-content',
-  templateUrl: './report-content.component.html',
-  styleUrls: ['./report-content.component.scss']
+  selector: 'app-report-table',
+  templateUrl: './report-table.component.html',
+  styleUrls: ['./report-table.component.scss']
 })
-export class ReportContentComponent implements OnInit {
+export class ReportTableComponent implements OnInit {
   
   constructor(private state: StateService, private modalService: NgbModal) { }
-  ordersTableData: IOrderDataTable[];
+  ordersTableData: IOrderDataTable[] = [];
   tableKeyMap = [];
   
   ngOnInit() {
+    this.tableKeyMap = TableKeyMap;
     this.state.ordersSub$.subscribe((ordersData: IOrderResponse[]) => {
-      this.ordersTableData = []
       if (ordersData.length > 0) this.initializeTable(ordersData);
     });
     this.state.getCurrentPosData();
   }
   
-  initializeTable(data) {
-    this.tableKeyMap = TableKeyMap;
-    console.log('TableKeyMap: ', TableKeyMap);
-    this.buildTableData(data);
-  }
-  
-  buildTableData(orders) {
+  initializeTable(orders: IOrderResponse[]): void {
     orders.forEach((order, index) => {
       this.ordersTableData[index] = {
         orderId: order.ID,
@@ -75,7 +69,7 @@ export class ReportContentComponent implements OnInit {
     });
   }
 
-  openOrderSingleView(order) {
+  openOrderSingleView(order: IOrderDataTable) {
     const modalRef = this.modalService.open(ModalViewComponent);
     modalRef.componentInstance.dataToDisplay = order;
     modalRef.componentInstance.title = 'Order Details';
@@ -83,9 +77,8 @@ export class ReportContentComponent implements OnInit {
 
   openPosDetails() {
     const modalRef = this.modalService.open(ModalViewComponent);
-    modalRef.componentInstance.dataToDisplay = this.state.getCurrentPosData();;
+    modalRef.componentInstance.dataToDisplay = this.state.getCurrentPosData();
     modalRef.componentInstance.title = 'POS Details';
-    
   }
   
 }

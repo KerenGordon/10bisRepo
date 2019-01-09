@@ -7,24 +7,24 @@ import {Component, OnInit, Input} from '@angular/core';
 })
 export class ContentLoaderComponent implements OnInit {
     
-    @Input() widthPercent = 100;
-    @Input() heightPercent = 100;
-    @Input() onFalseUserMessage = 'Something went wrong.';
+    @Input() widthPercent: number = 100;
+    @Input() heightPercent: number = 100;
+    @Input() onFalseUserMessage: string = 'Something went wrong.';
 
-    showContentIfValue = true;
+    isShowContent: boolean = true;
     @Input() set showContentIf(value: boolean) {
-        this.showContentIfValue = value;
-        if (!this.showContentIf) {
+        this.isShowContent = value;
+        if (!this.isShowContent) {
             this.checkForTimeOut();
         }
     }
     get showContentIf(): boolean {
-        return this.showContentIfValue;
+        return this.isShowContent;
     }
     
-    timeoutCounter = 0;
-    timeoutMax = 5;
-    showTimeContent = false;
+    timeoutCounter: number = 0;
+    timeoutMax: number = 5;
+    showTimeoutContent = false;
 
 
     constructor() {
@@ -36,20 +36,18 @@ export class ContentLoaderComponent implements OnInit {
 
     checkForTimeOut() {
         let interval;
-        this.showTimeContent = false;
-        if (!this.showContentIfValue) {
+        this.showTimeoutContent = false;
+        if (!this.isShowContent) {
             interval = setInterval(() => {
                 this.timeoutCounter++;
-                if (this.showContentIfValue) {
-                    this.showTimeContent = false;
+                if (this.isShowContent) {
+                    this.showTimeoutContent = false;
                     clearInterval(interval);
                 }
                 if (this.timeoutCounter >= this.timeoutMax) {
-                    this.showTimeContent = true;
+                    this.showTimeoutContent = true;
                     clearInterval(interval);
                 }
-                
-
             }, 1000);
         }
     }
