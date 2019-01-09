@@ -8,7 +8,7 @@ import { NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
   styleUrls: ['./modal-view.component.scss']
 })
 export class ModalViewComponent implements OnInit {
-  @Input() dataToDisplay: Object;
+  @Input() dataToDisplay: Object = {};
   @Input() title: string = ' ';
   fieldNames: Array<string> = [];
   constructor(public activeModal: NgbActiveModal, private utils: UtilsService) { }

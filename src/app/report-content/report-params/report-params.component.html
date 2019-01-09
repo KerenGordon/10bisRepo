@@ -5,6 +5,7 @@
       
       <div class="col-lg-4 input-wrapper" ngbDropdown #suggestionsMenu="ngbDropdown">
         <input ngbDropdownAnchor autofocus type="text" formControlName="storeName" class="form-control" placeholder="Search for a store..."
+        [ngClass]="{'is-invalid': ordersForm.controls['storeName'].errors?.noMatch && !isSpinnerActive, 'is-valid': !ordersForm.controls['storeName'].errors && !isSpinnerActive}"
         (focus)="subscribeToStoreInputChanges()" (focusout)="unsubscribeFromStoreNameInput()">
         <svg class="spinner" *ngIf="isSpinnerActive" class="spinner fade-in" width="25px" height="25px" viewBox="0 0 66 66">
           <circle class="path" fill="none" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
@@ -12,11 +13,11 @@
         <div ngbDropdownMenu class="ngb-dropdown-menu fade-in" aria-labelledby="suggestionsMenu">
           <button class="dropdown-item" type="button" *ngFor="let suggestion of availableStoresSuggestion" (click)="selectStore(suggestion)"> {{ suggestion.Name }}</button>
         </div>
-        <div *ngIf="ordersForm.controls['storeName'].errors?.noMatch && !isSpinnerActive" class="no-result fade-in"> No active stores. </div>
       </div>
       
       <div class="col-lg-2 input-wrapper" ngbDropdown #posMenu="ngbDropdown">
-        <input ngbDropdownToggle type="text" (keypress)="false" formControlName="pos" class="form-control" placeholder="Pick a POS" >
+        <input ngbDropdownToggle type="text" (keypress)="false" formControlName="pos" class="form-control" placeholder="Pick a POS"
+        [ngClass]="{'is-valid': ordersForm.controls['pos'].value}">
         <div ngbDropdownMenu class="ngb-dropdown-menu fade-in" aria-labelledby="posMenu">
           <button class="dropdown-item" type="button" *ngFor="let pos of storePosList" (click)="selectPos(pos)"> {{ pos.Name }}</button>
         </div>

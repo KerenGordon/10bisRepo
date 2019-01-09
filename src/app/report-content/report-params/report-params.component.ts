@@ -72,7 +72,7 @@ export class ReportParamsComponent implements OnInit {
 
     setTimeout(() => {
       this.isSpinnerActive = false;
-    }, 1000);
+    }, 500);
   }
   selectStore(store): void {
     this.updateCurrentStoreParams(store);
@@ -81,16 +81,19 @@ export class ReportParamsComponent implements OnInit {
   }
   resetSearchParams(): void {
     this.ordersForm.get('pos').disable();
+    this.ordersForm.get('pos').setValue(null);
     this.storePosList = null;
     this.availableStoresSuggestion = null;
   }
   updateCurrentStoreParams(currentStore: IStore): void {
     this.ordersForm.get('pos').enable();
+    this.ordersForm.get('storeName').setErrors(null); 
     this.ordersForm.get('storeName').setValue(currentStore.Name);
     this.storePosList = currentStore.POSList;
     this.isSpinnerActive = false;
   }
   updateSuggestionsMenu(availableStores: IStore[]): void {
+    this.ordersForm.get('storeName').setErrors({'required': true}); 
     this.availableStoresSuggestion = availableStores;
     if (!this.suggestionsMenu.isOpen()) this.suggestionsMenu.open();
   }
